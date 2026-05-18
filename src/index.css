@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply bg-bg text-text font-bricolage;
+}
+
+@keyframes revealSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealSlideUpLarge {
+  from {
+    opacity: 0;
+    transform: translateY(42px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  will-change: opacity, transform;
+}
+
+[data-reveal].reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: revealSlideUp 0.8s cubic-bezier(0.2, 0.85, 0.25, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal][data-reveal-effect="fade"].reveal-visible {
+  animation-name: revealFade;
+}
+
+[data-reveal][data-reveal-effect="big"].reveal-visible {
+  animation-name: revealSlideUpLarge;
+}
+
+[data-reveal][data-reveal-effect="slow"].reveal-visible {
+  animation-duration: 1s;
+}
+
+[data-countup] {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+[data-countup].reveal-visible {
+  opacity: 1;
+}
+
+[data-fill] {
+  width: 0%;
+}
+
+.scroll-reveal {
+  @apply opacity-0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.glow-green {
+  @apply bg-green-glow;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
