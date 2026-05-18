@@ -11,7 +11,12 @@ import Footer from './components/Footer'
 
 function App() {
   useEffect(() => {
-    const easeOut = (t) => 1 - Math.pow(1 - t, 3)
+    // springy easing with slight overshoot for a more noticeable reveal
+    const easeOutBack = (t) => {
+      const c1 = 1.70158
+      const c3 = c1 + 1
+      return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2)
+    }
 
     const animateCount = (el) => {
       const count = parseFloat(el.dataset.countup)
@@ -20,10 +25,11 @@ function App() {
       const suffix = el.dataset.suffix ?? ''
       const decimals = String(el.dataset.countup).includes('.') ? 2 : 0
       const startTime = performance.now()
+      const duration = 900 // shorter, snappier count-up
 
       const tick = (time) => {
-        const progress = Math.min((time - startTime) / 1200, 1)
-        el.textContent = prefix + (count * easeOut(progress)).toFixed(decimals) + suffix
+        const progress = Math.min((time - startTime) / duration, 1)
+        el.textContent = prefix + (count * easeOutBack(progress)).toFixed(decimals) + suffix
         if (progress < 1) requestAnimationFrame(tick)
       }
 
@@ -34,10 +40,11 @@ function App() {
       const target = Number(el.dataset.fill ?? 0)
       if (Number.isNaN(target)) return
       const startTime = performance.now()
+      const duration = 900
 
       const tick = (time) => {
-        const progress = Math.min((time - startTime) / 1200, 1)
-        el.style.width = `${easeOut(progress) * target}%`
+        const progress = Math.min((time - startTime) / duration, 1)
+        el.style.width = `${Math.max(0, Math.min(100, easeOutBack(progress) * target))}%`
         if (progress < 1) requestAnimationFrame(tick)
       }
 
@@ -53,7 +60,7 @@ function App() {
         if (el.dataset.fill) animateFill(el)
         obs.unobserve(el)
       })
-    }, { threshold: 0.15 })
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' })
 
     document.querySelectorAll('[data-reveal], [data-countup], [data-fill]').forEach((el) => {
       observer.observe(el)

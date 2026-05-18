@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-import proof0 from "../assets/proof/proof.jpeg"
-import proof1 from "../assets/proof/proof1.jpeg"
-import proof2 from "../assets/proof/proof2.jpeg"
-import proof3 from "../assets/proof/proof3.jpeg"
-import proof4 from "../assets/proof/proof4.jpeg"
+import proof9 from "../assets/proof/proof9.jpeg"
+import proof10 from "../assets/proof/proof10.jpeg"
+import proof11 from "../assets/proof/proof11.jpeg"
+import proof12 from "../assets/proof/proof12.jpeg"
+import proof13 from "../assets/proof/proof13.jpeg"
 import proof5 from "../assets/proof/proof5.jpeg"
 
 import testimonial0 from "../assets/testimonials/testimonial.jpeg"
@@ -31,11 +31,11 @@ export default function ProofSection() {
   ]
 
   const proofImages = [
-    proof0,
-    proof1,
-    proof2,
-    proof3,
-    proof4,
+    proof9,
+    proof10,
+    proof11,
+    proof12,
+    proof13,
     proof5
   ]
 
@@ -75,13 +75,13 @@ export default function ProofSection() {
 
         {/* HEADER */}
         <div className="mb-14">
-          <div className="text-green-500 text-sm font-semibold uppercase tracking-widest mb-2">
+          <div data-reveal className="text-green-500 text-sm font-semibold uppercase tracking-widest mb-2">
             Proof of Results
           </div>
-          <h2 className="text-4xl font-bold mb-2">
+          <h2 data-reveal className="text-4xl font-bold mb-2">
             The numbers don’t lie
           </h2>
-          <p className="text-white/60">
+          <p data-reveal data-reveal-effect="fade" className="text-white/60">
             Real tracked results across multiple seasons.
           </p>
         </div>
@@ -96,6 +96,8 @@ export default function ProofSection() {
             return (
               <div
                 key={i}
+                data-reveal
+                style={{ ['--reveal-delay']: `${i * 80}ms` }}
                 className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center hover:border-green/40 transition"
               >
                 <div
@@ -106,7 +108,7 @@ export default function ProofSection() {
                 >
                   0{suffix}
                 </div>
-                <div className="text-white/50 text-sm">
+                <div className="text-white/50 text-sm" data-reveal data-reveal-effect="fade">
                   {s.label}
                 </div>
               </div>
@@ -128,6 +130,8 @@ export default function ProofSection() {
             ref={containerRef}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
+            data-reveal
+            data-reveal-effect="right"
             className="relative flex justify-center isolate"
           >
             <div className="relative w-full max-w-lg h-[420px] rounded-3xl overflow-hidden border border-white/10">
@@ -135,6 +139,8 @@ export default function ProofSection() {
               {/* blurred bg */}
               <img
                 src={testimonialImages[active]}
+                data-reveal
+                data-reveal-effect="right"
                 className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-60"
               />
 
@@ -144,6 +150,8 @@ export default function ProofSection() {
               <img
                 src={testimonialImages[active]}
                 onClick={() => setExpandedImage(testimonialImages[active])}
+                data-reveal
+                data-reveal-effect="right"
                 className="relative z-10 w-full h-full object-contain cursor-pointer hover:scale-[1.02] transition"
               />
             </div>
@@ -166,10 +174,13 @@ export default function ProofSection() {
           </div>
 
           {/* THUMBNAILS */}
-          <div className="flex justify-center gap-3 mt-6">
+          <div data-reveal data-reveal-effect="fade" className="flex justify-center gap-3 mt-6">
             {testimonialImages.map((img, i) => (
               <button
                 key={i}
+                data-reveal
+                data-reveal-effect={i % 2 === 0 ? 'left' : 'right'}
+                style={{ ['--reveal-delay']: `${i * 60}ms` }}
                 onClick={() => setActive(i)}
                 className={`w-20 h-14 rounded-lg overflow-hidden border transition ${
                   i === active
@@ -194,18 +205,24 @@ export default function ProofSection() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {proofImages.map((img, i) => (
-              <div
-                key={i}
-                onClick={() => setExpandedImage(img)}
-                className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 cursor-pointer group"
-              >
-                <img
-                  src={img}
-                  className="w-full h-52 object-cover transition duration-300 group-hover:scale-105 group-hover:brightness-110"
-                />
-              </div>
-            ))}
+            {proofImages.map((img, i) => {
+              const effect = i % 3 === 0 ? 'left' : i % 3 === 1 ? 'fade' : 'right'
+              return (
+                <div
+                  key={i}
+                  data-reveal
+                  data-reveal-effect={effect}
+                  style={{ ['--reveal-delay']: `${i * 80}ms` }}
+                  onClick={() => setExpandedImage(img)}
+                  className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 cursor-pointer group"
+                >
+                  <img
+                    src={img}
+                    className="w-full h-52 object-cover transition duration-300 group-hover:scale-105 group-hover:brightness-110"
+                  />
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

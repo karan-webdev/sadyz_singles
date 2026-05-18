@@ -112,7 +112,7 @@ export default function MultisSection() {
                 </li>
               </ul>
 
-              <button className="w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all">
+              <button className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all">
                 Get Monthly
               </button>
 
@@ -166,7 +166,7 @@ export default function MultisSection() {
                 </li>
               </ul>
 
-              <button className="w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all">
+              <button className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all">
                 Get Season Pass
               </button>
 

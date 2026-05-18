@@ -13,33 +13,45 @@ body {
 @keyframes revealSlideUp {
   from {
     opacity: 0;
-    transform: translateY(26px);
+    transform: translateY(36px) scale(0.985);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.02);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes revealSlideUpLarge {
   from {
     opacity: 0;
-    transform: translateY(42px);
+    transform: translateY(56px) scale(0.98);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.03);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes revealFade {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(18px) scale(0.992);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.01);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -51,8 +63,8 @@ body {
 
 [data-reveal].reveal-visible {
   opacity: 1;
-  transform: translateY(0);
-  animation: revealSlideUp 0.8s cubic-bezier(0.2, 0.85, 0.25, 1) both;
+  transform: translateY(0) scale(1);
+  animation: revealSlideUp 0.7s cubic-bezier(0.22, 1.6, 0.36, 1) both;
   animation-delay: var(--reveal-delay, 0ms);
 }
 
@@ -62,10 +74,54 @@ body {
 
 [data-reveal][data-reveal-effect="big"].reveal-visible {
   animation-name: revealSlideUpLarge;
+  animation-duration: 0.8s;
 }
 
 [data-reveal][data-reveal-effect="slow"].reveal-visible {
-  animation-duration: 1s;
+  animation-duration: 0.95s;
+}
+
+/* slide from left/right */
+@keyframes revealSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-36px) scale(0.98);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(8px) scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes revealSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(36px) scale(0.98);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-8px) scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+[data-reveal][data-reveal-effect="left"].reveal-visible {
+  animation-name: revealSlideLeft;
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.22, 1.6, 0.36, 1);
+}
+
+[data-reveal][data-reveal-effect="right"].reveal-visible {
+  animation-name: revealSlideRight;
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.22, 1.6, 0.36, 1);
 }
 
 [data-countup] {
@@ -83,7 +139,22 @@ body {
 
 .scroll-reveal {
   @apply opacity-0;
-  animation: fadeInUp 0.6s ease forwards;
+  animation: fadeInUp 0.65s cubic-bezier(0.22, 1.6, 0.36, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.99);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .glow-green {
@@ -97,4 +168,22 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: shimmer 3.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  30%, 100% { transform: translateX(100%); }
 }

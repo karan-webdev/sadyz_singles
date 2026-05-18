@@ -60,7 +60,7 @@ export default function SinglesSoldOut() {
               />
               <button
                 onClick={handleSubmit}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                className={`btn-primary px-6 py-3 rounded-lg font-semibold transition-all ${
                   submitted
                     ? 'bg-green text-black'
                     : 'bg-green text-black hover:bg-green-dim'

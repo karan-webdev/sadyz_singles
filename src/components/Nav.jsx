@@ -24,7 +24,7 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 bg-bg/95 backdrop-blur-sm border-b border-text-dim/10 transition-transform duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-bg/70 backdrop-blur-sm border-b border-text-dim/10 transition-transform duration-300 ${
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
@@ -54,7 +54,7 @@ export default function Nav() {
 
           <a
             href="#multis"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green text-black font-semibold text-sm hover:bg-green-dim transition-all transform hover:-translate-y-0.5"
+            className="btn-primary flex items-center gap-2 px-4 py-2 rounded-lg bg-green text-black font-semibold text-sm hover:bg-green-dim transition-all transform hover:-translate-y-0.5"
           >
             Join Multis <ChevronRight size={16} />
           </a>
@@ -63,7 +63,7 @@ export default function Nav() {
         {/* MOBILE CTA ONLY */}
         <a
           href="#multis"
-          className="md:hidden flex items-center gap-2 px-4 py-2 rounded-lg bg-green text-black font-semibold text-sm hover:bg-green-dim transition-all"
+          className="btn-primary md:hidden flex items-center gap-2 px-4 py-2 rounded-lg bg-green text-black font-semibold text-sm hover:bg-green-dim transition-all"
         >
           Join Multis <ChevronRight size={16} />
         </a>
