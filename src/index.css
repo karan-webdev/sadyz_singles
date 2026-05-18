@@ -10,50 +10,7 @@ body {
   @apply bg-bg text-text font-bricolage;
 }
 
-@keyframes revealSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(36px) scale(0.985);
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(-6px) scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
 
-@keyframes revealSlideUpLarge {
-  from {
-    opacity: 0;
-    transform: translateY(56px) scale(0.98);
-  }
-  65% {
-    opacity: 1;
-    transform: translateY(-8px) scale(1.03);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes revealFade {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.992);
-  }
-  80% {
-    opacity: 1;
-    transform: translateY(-4px) scale(1.01);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
 
 [data-reveal] {
   opacity: 0;
@@ -81,36 +38,9 @@ body {
   animation-duration: 0.95s;
 }
 
-/* slide from left/right */
-@keyframes revealSlideLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-36px) scale(0.98);
-  }
-  70% {
-    opacity: 1;
-    transform: translateX(8px) scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
 
-@keyframes revealSlideRight {
-  from {
-    opacity: 0;
-    transform: translateX(36px) scale(0.98);
-  }
-  70% {
-    opacity: 1;
-    transform: translateX(-8px) scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
+
+
 
 [data-reveal][data-reveal-effect="left"].reveal-visible {
   animation-name: revealSlideLeft;
@@ -142,20 +72,7 @@ body {
   animation: fadeInUp 0.65s cubic-bezier(0.22, 1.6, 0.36, 1) forwards;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.99);
-  }
-  75% {
-    opacity: 1;
-    transform: translateY(-6px) scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+
 
 .glow-green {
   @apply bg-green-glow;
