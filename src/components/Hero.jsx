@@ -35,7 +35,7 @@ export default function Hero() {
           className="text-sm sm:text-base md:text-lg text-text-muted max-w-2xl mb-8 md:mb-10 leading-relaxed"
         >
           Daily sports betting tips delivered straight to your Telegram. Fully tracked in units,
-          completely transparent — for beginners and seasoned punters alike.
+          completely transparent - for beginners and seasoned punters alike.
         </p>
 
         {/* Stats */}
