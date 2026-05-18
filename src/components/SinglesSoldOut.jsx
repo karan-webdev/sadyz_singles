@@ -1,26 +1,47 @@
 import { useEffect, useRef, useState } from 'react'
 import { CheckCircle, AlertCircle } from 'lucide-react'
 
-function useInView(ref) {
-  const [inView, setInView] = useState(false)
+function useRevealRef(delay = 0) {
+  const ref = useRef(null)
 
   useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setInView(true)
-          obs.disconnect()
+          setTimeout(() => el.classList.add('show'), delay)
+          obs.unobserve(el)
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     )
 
-    if (ref.current) obs.observe(ref.current)
-
+    obs.observe(el)
     return () => obs.disconnect()
-  }, [])
+  }, [delay])
 
-  return inView
+  return ref
+}
+
+function animateCount(el) {
+  const target = parseFloat(el.dataset.countup)
+  const prefix = el.dataset.prefix || ""
+  const suffix = el.dataset.suffix || ""
+  const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals) : 2
+
+  const start = performance.now()
+  const duration = 1200
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1)
+    const value = (progress * target).toFixed(decimals)
+    el.textContent = `${prefix}${value}${suffix}`
+    if (progress < 1) requestAnimationFrame(tick)
+  }
+
+  requestAnimationFrame(tick)
 }
 
 export default function SinglesSoldOut() {
@@ -34,117 +55,123 @@ export default function SinglesSoldOut() {
     setTimeout(() => setSubmitted(false), 3000)
   }
 
-  const leftRef = useRef(null)
-  const rightRef = useRef(null)
-
-  const leftVisible = useInView(leftRef)
-  const rightVisible = useInView(rightRef)
-
   const features = [
     'Daily betting tips sent to Telegram',
     'Fully tracked results in units',
     'Detailed stake sizing guidance',
     'Access to premium research',
     'Exclusive community access',
-    'Full refund guarantee'
+    'Full refund guarantee',
   ]
 
   const results = [
     { year: '2024', roi: 127.8 },
     { year: '2025 Q1', roi: 62.3 },
-    { year: '2026 YTD', roi: 56.78 }
+    { year: '2026 YTD', roi: 56.78 },
   ]
+
+  // Left column refs
+  const labelRef      = useRevealRef(0)
+  const headingRef    = useRevealRef(80)
+  const badgeRef      = useRevealRef(160)
+  const paraRef       = useRevealRef(240)
+  const featureRefs   = features.map((_, i) => useRevealRef(320 + i * 70))
+  const formRef       = useRevealRef(320 + features.length * 70)
+  const disclaimerRef = useRevealRef(320 + features.length * 70 + 60)
+
+  // Right column refs
+  const cardLabelRef = useRevealRef(0)
+  const resultRefs   = results.map((_, i) => useRevealRef(80 + i * 120))
+  const cardNoteRef  = useRevealRef(80 + results.length * 120)
+
+  // Bar + countup state
+  const [barVisible, setBarVisible] = useState(results.map(() => false))
+  const barRefs   = results.map(() => useRef(null))
+  const countRefs = results.map(() => useRef(null))
+
+  useEffect(() => {
+    barRefs.forEach((ref, i) => {
+      const el = ref.current
+      if (!el) return
+
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            const delay = 80 + i * 120 + 200
+            setTimeout(() => {
+              setBarVisible((prev) => {
+                const next = [...prev]
+                next[i] = true
+                return next
+              })
+              const countEl = countRefs[i].current
+              if (countEl && !countEl.dataset.done) {
+                countEl.dataset.done = "true"
+                animateCount(countEl)
+              }
+            }, delay)
+            obs.unobserve(el)
+          }
+        },
+        { threshold: 0.15 }
+      )
+
+      obs.observe(el)
+      return () => obs.disconnect()
+    })
+  }, [])
 
   return (
     <>
       <style>{`
-        /* LEFT TEXT */
-        .fade {
+        .rv {
           opacity: 0;
-          transform: translateY(18px);
-          transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+          transform: translateY(20px);
+          transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
         }
-
-        .fade.show {
+        .rv.show {
           opacity: 1;
           transform: translateY(0);
         }
-
-        .d1 { transition-delay: 0.05s; }
-        .d2 { transition-delay: 0.15s; }
-        .d3 { transition-delay: 0.25s; }
-        .d4 { transition-delay: 0.35s; }
-        .d5 { transition-delay: 0.45s; }
-
-        /* FEATURES STAGGER */
-        .feature {
+        .rv-card {
           opacity: 0;
-          transform: translateY(14px);
-          transition: all 0.6s ease;
+          transform: translateY(36px);
+          transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
         }
-
-        .feature.show {
+        .rv-card.show {
           opacity: 1;
           transform: translateY(0);
-        }
-
-        /* RIGHT CARD */
-        .card {
-          opacity: 0;
-          transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .card.show {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        /* progress bars */
-        .bar {
-          width: 0%;
-          transition: width 1.2s ease;
-        }
-
-        .bar.fill {
-          /* width injected inline via JS class trigger */
         }
       `}</style>
 
       <section className="py-24" id="singles-waitlist">
-
         <div className="max-w-7xl mx-auto px-6">
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
 
             {/* LEFT */}
-            <div ref={leftRef}>
-
-              <div className={`fade d1 text-green text-sm font-semibold tracking-wide uppercase mb-2 ${leftVisible ? "show" : ""}`}>
+            <div>
+              <div ref={labelRef} className="rv text-green text-sm font-semibold tracking-wide uppercase mb-2">
                 CHANNEL STATUS
               </div>
 
-              <h2 className={`fade d2 text-4xl font-bricolage font-bold mb-2 text-white ${leftVisible ? "show" : ""}`}>
+              <h2 ref={headingRef} className="rv text-4xl font-bricolage font-bold mb-2 text-white">
                 Singles Waitlist
               </h2>
 
-              <div className={`fade d3 flex items-center gap-2 mb-8 text-yellow-500 ${leftVisible ? "show" : ""}`}>
+              <div ref={badgeRef} className="rv flex items-center gap-2 mb-8 text-yellow-500">
                 <AlertCircle size={20} />
                 <span className="font-semibold">Sold out for the season</span>
               </div>
 
-              <p className={`fade d4 text-text-muted text-lg mb-8 leading-relaxed ${leftVisible ? "show" : ""}`}>
+              <p ref={paraRef} className="rv text-text-muted text-lg mb-8 leading-relaxed">
                 The Singles channel is currently at capacity. Join the waitlist to be notified the moment spots open for the next season.
               </p>
 
-              {/* FEATURES */}
               <ul className="space-y-3 mb-10">
                 {features.map((f, i) => (
-                  <li
-                    key={i}
-                    className={`feature ${leftVisible ? "show" : ""}`}
-                    style={{ transitionDelay: `${0.1 * i + 0.2}s` }}
-                  >
+                  <li key={i} ref={featureRefs[i]} className="rv">
                     <div className="flex items-center gap-3 text-text-muted">
                       <CheckCircle size={18} className="text-green flex-shrink-0" />
                       <span className="text-sm">{f}</span>
@@ -153,8 +180,7 @@ export default function SinglesSoldOut() {
                 ))}
               </ul>
 
-              {/* FORM */}
-              <div className={`fade d5 flex gap-2 mb-3 ${leftVisible ? "show" : ""}`}>
+              <div ref={formRef} className="rv flex gap-2 mb-3">
                 <input
                   type="email"
                   placeholder="your@email.com"
@@ -163,73 +189,60 @@ export default function SinglesSoldOut() {
                   onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                   className="flex-1 px-4 py-3 rounded-lg bg-bg-card border border-text-dim/20 text-white focus:outline-none focus:border-green/50 transition-colors"
                 />
-
                 <button
                   onClick={handleSubmit}
-                  className={`btn-primary px-6 py-3 rounded-lg font-semibold transition-all ${
-                    submitted
-                      ? 'bg-green text-black'
-                      : 'bg-green text-black hover:bg-green-dim'
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                    submitted ? 'bg-green text-black' : 'bg-green text-black hover:bg-green-dim'
                   }`}
                 >
                   {submitted ? '✓ Added' : 'Join'}
                 </button>
               </div>
 
-              <p className="text-xs text-text-dim">
+              <p ref={disclaimerRef} className="rv text-xs text-text-dim">
                 No spam. One email when spots open.
               </p>
-
             </div>
 
             {/* RIGHT */}
-            <div ref={rightRef}>
-
-              <div className={`card ${rightVisible ? "show" : ""} p-6 rounded-xl bg-bg-card border border-text-dim/20`}>
-
-                <div className="text-green text-xs font-semibold tracking-wide uppercase mb-4">
-                  2024 Season Results
-                </div>
-
-                <div className="space-y-4">
-
-                  {results.map((item, i) => {
-                    const percent = Math.min(100, (item.roi / 128) * 100)
-
-                    return (
-                      <div key={i}>
-
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-mono text-text-muted">
-                            {item.year}
-                          </span>
-
-                          <span className="text-lg font-bold text-green font-mono">
-                            +{item.roi}U
-                          </span>
-                        </div>
-
-                        <div className="h-2 bg-bg-card-2 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-green to-green/70 rounded-full transition-all duration-1000"
-                            style={{
-                              width: rightVisible ? `${percent}%` : "0%"
-                            }}
-                          />
-                        </div>
-
-                      </div>
-                    )
-                  })}
-
-                </div>
-
-                <p className="text-xs text-text-dim mt-4 font-mono">
-                  1 unit = baseline stake. ROI varies by season.
-                </p>
-
+            <div className="p-6 rounded-xl bg-bg-card border border-text-dim/20">
+              <div ref={cardLabelRef} className="rv text-green text-xs font-semibold tracking-wide uppercase mb-4">
+                Season Results
               </div>
 
+              <div className="space-y-4">
+                {results.map((item, i) => {
+                  const percent = Math.min(100, (item.roi / 128) * 100)
+                  return (
+                    <div key={i} ref={resultRefs[i]} className="rv-card">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-mono text-text-muted">{item.year}</span>
+                        <span
+                          ref={countRefs[i]}
+                          data-countup={item.roi}
+                          data-prefix="+"
+                          data-suffix="U"
+                          data-decimals="2"
+                          className="text-lg font-bold text-green font-mono"
+                        >
+                          +0.00U
+                        </span>
+                      </div>
+
+                      <div ref={barRefs[i]} className="h-2 bg-bg-card-2 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-green to-green/70 rounded-full transition-all duration-[1200ms] ease-out"
+                          style={{ width: barVisible[i] ? `${percent}%` : '0%' }}
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+
+              <p ref={cardNoteRef} className="rv text-xs text-text-dim mt-4 font-mono">
+                1 unit = baseline stake. ROI varies by season.
+              </p>
             </div>
 
           </div>

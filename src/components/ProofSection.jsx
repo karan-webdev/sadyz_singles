@@ -227,7 +227,7 @@ export default function ProofSection() {
               onTouchEnd={onTouchEnd}
               className="relative flex justify-center"
             >
-              <div className="relative w-full max-w-lg h-[420px] rounded-3xl overflow-hidden border border-white/10">
+              <div className="relative w-full max-w-lg h-[420px] rounded-3xl overflow-hidden border border-white/10 z-0">
 
                 <img
                   src={testimonialImages[active]}
@@ -248,14 +248,14 @@ export default function ProofSection() {
               {/* ARROWS (NO EFFECTS) */}
               <button
                 onClick={prev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+                className="z-10 absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
               >
                 <ChevronLeft size={20} />
               </button>
 
               <button
                 onClick={next}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+                className="z-10 absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
               >
                 <ChevronRight size={20} />
               </button>

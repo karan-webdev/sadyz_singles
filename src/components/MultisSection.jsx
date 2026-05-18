@@ -1,26 +1,48 @@
 import { useEffect, useRef, useState } from 'react'
 import { CheckCircle, RefreshCw, Users } from 'lucide-react'
 
-function useInView(ref) {
+function useInView(ref, options = {}) {
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
+    const node = ref.current
+    if (!node) return
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true)
-          obs.disconnect()
+          obs.unobserve(entry.target)
         }
       },
-      { threshold: 0.2 }
+      {
+        root: null,
+        threshold: options.threshold ?? 0.12,
+        rootMargin: options.rootMargin ?? '0px 0px -10% 0px',
+      }
     )
 
-    if (ref.current) obs.observe(ref.current)
+    obs.observe(node)
 
     return () => obs.disconnect()
-  }, [])
+  }, [ref, options.threshold, options.rootMargin])
 
   return inView
+}
+
+function Animated({ children, className = '', delay = 0, as: Tag = 'div', threshold, rootMargin }) {
+  const ref = useRef(null)
+  const visible = useInView(ref, { threshold, rootMargin })
+
+  return (
+    <Tag
+      ref={ref}
+      className={`${className} ${visible ? 'show' : ''}`}
+      style={{ transitionDelay: `${delay}s` }}
+    >
+      {children}
+    </Tag>
+  )
 }
 
 export default function MultisSection() {
@@ -28,18 +50,29 @@ export default function MultisSection() {
   const leftRef = useRef(null)
   const rightRef = useRef(null)
 
-  const headerVisible = useInView(headerRef)
-  const leftVisible = useInView(leftRef)
-  const rightVisible = useInView(rightRef)
+  const headerVisible = useInView(headerRef, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -10% 0px',
+  })
+
+  const leftVisible = useInView(leftRef, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -10% 0px',
+  })
+
+  const rightVisible = useInView(rightRef, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -10% 0px',
+  })
 
   return (
     <>
       <style>{`
-        /* HEADER */
         .fade {
           opacity: 0;
           transform: translateY(18px);
-          transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+          transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform;
         }
 
         .fade.show {
@@ -51,11 +84,11 @@ export default function MultisSection() {
         .d2 { transition-delay: 0.15s; }
         .d3 { transition-delay: 0.25s; }
 
-        /* LEFT (entire block) */
         .left-fade {
           opacity: 0;
           transform: translateY(24px);
-          transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+          transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform;
         }
 
         .left-fade.show {
@@ -63,23 +96,23 @@ export default function MultisSection() {
           transform: translateY(0);
         }
 
-        /* FEATURES */
         .feature {
           opacity: 0;
-          transform: translateX(-14px);
-          transition: all 0.6s ease;
+          transform: translateY(14px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+          will-change: opacity, transform;
         }
 
         .feature.show {
           opacity: 1;
-          transform: translateX(0);
+          transform: translateY(0);
         }
 
-        /* RIGHT CARDS */
         .card {
           opacity: 0;
           transform: translateY(60px);
-          transition: all 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+          transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform;
         }
 
         .card.show {
@@ -89,15 +122,23 @@ export default function MultisSection() {
 
         .delay1 { transition-delay: 0.15s; }
         .delay2 { transition-delay: 0.3s; }
+
+        .item-fade {
+          opacity: 0;
+          transform: translateY(12px);
+          transition: opacity 0.55s ease, transform 0.55s ease;
+          will-change: opacity, transform;
+        }
+
+        .item-fade.show {
+          opacity: 1;
+          transform: translateY(0);
+        }
       `}</style>
 
       <section id="multis" className="py-24 bg-bg/50 border-y border-text-dim/10">
-
         <div className="max-w-7xl mx-auto px-6">
-
-          {/* HEADER — EXACT SAME CONTENT */}
           <div ref={headerRef} className="mb-16">
-
             <div className={`fade d1 text-green text-sm font-semibold tracking-wide uppercase mb-2 ${headerVisible ? "show" : ""}`}>
               MAIN OFFER — OPEN NOW
             </div>
@@ -109,31 +150,35 @@ export default function MultisSection() {
             <p className={`fade d3 text-text-muted text-lg ${headerVisible ? "show" : ""}`}>
               Multi-leg bets that combine several selections for bigger returns with a smaller stake. Fully tracked, beginner-friendly, unlimited spots.
             </p>
-
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-
-            {/* LEFT — EXACT SAME STRUCTURE */}
             <div ref={leftRef}>
-
               <div className={`left-fade ${leftVisible ? "show" : ""}`}>
-
                 <div className="space-y-8">
-
                   <div>
-                    <h3 className="text-2xl font-bricolage font-bold mb-3">
+                    <Animated
+                      as="h3"
+                      threshold={0.12}
+                      rootMargin="0px 0px -10% 0px"
+                      className="text-2xl font-bricolage font-bold mb-3"
+                      delay={0}
+                    >
                       What are Multis?
-                    </h3>
+                    </Animated>
 
-                    <p className="text-text-muted leading-relaxed">
+                    <Animated
+                      as="p"
+                      threshold={0.12}
+                      rootMargin="0px 0px -10% 0px"
+                      className="text-text-muted leading-relaxed"
+                      delay={0.08}
+                    >
                       Multis combine 2-5 individual picks into one multi-leg bet. If all legs hit, your returns are multiplied. Lower stake, higher potential upside. Perfect for managed risk.
-                    </p>
+                    </Animated>
                   </div>
 
-                  {/* FEATURES — UNTOUCHED STRUCTURE */}
                   <div className="space-y-3">
-
                     {[
                       {
                         icon: CheckCircle,
@@ -154,10 +199,13 @@ export default function MultisSection() {
                       const Icon = item.icon
 
                       return (
-                        <div
+                        <Animated
                           key={i}
-                          className={`feature ${leftVisible ? "show" : ""}`}
-                          style={{ transitionDelay: `${0.15 * i + 0.2}s` }}
+                          as="div"
+                          threshold={0.12}
+                          rootMargin="0px 0px -10% 0px"
+                          className="feature"
+                          delay={0.15 * i + 0.2}
                         >
                           <div className="flex gap-3">
                             <Icon size={20} className="text-green flex-shrink-0 mt-1" />
@@ -170,26 +218,23 @@ export default function MultisSection() {
                                 {item.desc}
                               </div>
                             </div>
-
                           </div>
-                        </div>
+                        </Animated>
                       )
                     })}
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>
 
-            {/* RIGHT — EXACT SAME CONTENT */}
             <div ref={rightRef} className="space-y-4">
-
-              {/* MONTHLY */}
-              <div className={`card delay1 ${rightVisible ? "show" : ""} p-6 rounded-xl border border-text-dim/30 bg-bg-card hover:border-green/50 transition-all`}>
-
+              <Animated
+                as="div"
+                threshold={0.12}
+                rootMargin="0px 0px -10% 0px"
+                className={`card delay1 p-6 rounded-xl border border-text-dim/30 bg-bg-card hover:border-green/50 transition-all`}
+                delay={0}
+              >
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="text-green text-xs font-semibold tracking-wide uppercase">
@@ -207,35 +252,68 @@ export default function MultisSection() {
                 </div>
 
                 <ul className="space-y-2 mb-6">
-                  <li className="text-sm text-text-muted flex items-center gap-2">
+                  <Animated
+                    as="li"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="item-fade text-sm text-text-muted flex items-center gap-2"
+                    delay={0.05}
+                  >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
                     <span><strong className="text-green">3-5 multis</strong> per week</span>
-                  </li>
+                  </Animated>
 
-                  <li className="text-sm text-text-muted flex items-center gap-2">
+                  <Animated
+                    as="li"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="item-fade text-sm text-text-muted flex items-center gap-2"
+                    delay={0.1}
+                  >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
                     <span>Telegram access</span>
-                  </li>
+                  </Animated>
 
-                  <li className="text-sm text-text-muted flex items-center gap-2">
+                  <Animated
+                    as="li"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="item-fade text-sm text-text-muted flex items-center gap-2"
+                    delay={0.15}
+                  >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
                     <span>Exclusive community access</span>
-                  </li>
+                  </Animated>
                 </ul>
 
-                <button className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all">
+                <Animated
+                  as="button"
+                  threshold={0.12}
+                  rootMargin="0px 0px -10% 0px"
+                  className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all item-fade"
+                  delay={0.2}
+                >
                   Get Monthly
-                </button>
+                </Animated>
 
-                <p className="text-xs text-text-dim text-center mt-3">
+                <Animated
+                  as="p"
+                  threshold={0.12}
+                  rootMargin="0px 0px -10% 0px"
+                  className="text-xs text-text-dim text-center mt-3 item-fade"
+                  delay={0.25}
+                >
                   Cancel anytime
-                </p>
+                </Animated>
+              </Animated>
 
-              </div>
-
-              {/* SEASON */}
-              <div className={`card delay2 ${rightVisible ? "show" : ""} relative p-6 rounded-xl border-2 border-green bg-bg-card hover:border-green transition-all ring-1 ring-green/30`}>
-
+              <Animated
+                as="div"
+                threshold={0.12}
+                rootMargin="0px 0px -10% 0px"
+                className={`card delay2 relative p-6 rounded-xl border-2 border-green bg-bg-card hover:border-green transition-all ring-1 ring-green/30`}
+                delay={0}
+              >
                 <div className="absolute -top-3 left-6 px-2 py-1 bg-green text-black text-xs font-bold rounded-full">
                   BEST VALUE
                 </div>
@@ -257,39 +335,72 @@ export default function MultisSection() {
                 </div>
 
                 <ul className="space-y-2 mb-6">
-                  <li className="text-sm text-text-muted flex items-center gap-2">
+                  <Animated
+                    as="li"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="item-fade text-sm text-text-muted flex items-center gap-2"
+                    delay={0.05}
+                  >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
                     <span><strong className="text-green">3-5 multis</strong> per week</span>
-                  </li>
+                  </Animated>
 
-                  <li className="text-sm text-text-muted flex items-center gap-2">
+                  <Animated
+                    as="li"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="item-fade text-sm text-text-muted flex items-center gap-2"
+                    delay={0.1}
+                  >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
                     <span>Telegram access</span>
-                  </li>
+                  </Animated>
 
-                  <li className="text-sm text-text-muted flex items-center gap-2">
+                  <Animated
+                    as="li"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="item-fade text-sm text-text-muted flex items-center gap-2"
+                    delay={0.15}
+                  >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
                     <span>Exclusive community access</span>
-                  </li>
+                  </Animated>
 
-                  <li className="text-sm text-text-muted flex items-center gap-2">
+                  <Animated
+                    as="li"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="item-fade text-sm text-text-muted flex items-center gap-2"
+                    delay={0.2}
+                  >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
                     <span>Refund guarantee</span>
-                  </li>
+                  </Animated>
                 </ul>
 
-                <button className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all">
+                <Animated
+                  as="button"
+                  threshold={0.12}
+                  rootMargin="0px 0px -10% 0px"
+                  className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all item-fade"
+                  delay={0.25}
+                >
                   Get Season Pass
-                </button>
+                </Animated>
 
-                <p className="text-xs text-text-dim text-center mt-3">
+                <Animated
+                  as="p"
+                  threshold={0.12}
+                  rootMargin="0px 0px -10% 0px"
+                  className="text-xs text-text-dim text-center mt-3 item-fade"
+                  delay={0.3}
+                >
                   Avg. $8.33 per week
-                </p>
-
-              </div>
-
+                </Animated>
+              </Animated>
             </div>
-
           </div>
         </div>
       </section>

@@ -1,12 +1,47 @@
+import { useEffect, useRef } from 'react'
 import { ArrowRight, Shield } from 'lucide-react'
 import hero from "../assets/hero-left.png"
 import hero2 from "../assets/hero2-portrait.png"
 
+function animateCount(el) {
+  const target = parseFloat(el.dataset.countup)
+  const prefix = el.dataset.prefix || ""
+  const suffix = el.dataset.suffix || ""
+  const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals) : 2
+
+  const start = performance.now()
+  const duration = 1200
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1)
+    const value = (progress * target).toFixed(decimals)
+    el.textContent = `${prefix}${value}${suffix}`
+    if (progress < 1) requestAnimationFrame(tick)
+  }
+
+  requestAnimationFrame(tick)
+}
+
 export default function Hero() {
+  // Refs for the three count-up spans
+  const count1 = useRef(null)
+  const count2 = useRef(null)
+  const count3 = useRef(null)
+
+  useEffect(() => {
+    // Hero is above the fold so just fire after the fade-in delay
+    const refs = [count1, count2, count3]
+    refs.forEach((ref, i) => {
+      const el = ref.current
+      if (!el) return
+      // stagger: stat cards appear at d4/d5/d6 (0.35s/0.45s/0.55s), start counting then
+      setTimeout(() => animateCount(el), 350 + i * 100)
+    })
+  }, [])
+
   return (
     <>
       <style>{`
-        /* SIMPLE STAGGER FADE SYSTEM */
         .fade {
           opacity: 0;
           transform: translateY(14px);
@@ -64,30 +99,45 @@ export default function Hero() {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-8 md:mb-10 max-w-2xl">
 
                 <div className="fade d4 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-green/50 transition-colors">
-                  <div className="font-mono text-xl sm:text-2xl font-bold text-green">
-                    +127.8U
+                  <div
+                    ref={count1}
+                    data-countup="127.8"
+                    data-prefix="+"
+                    data-suffix="U"
+                    data-decimals="1"
+                    className="font-mono text-xl sm:text-2xl font-bold text-green"
+                  >
+                    +0.0U
                   </div>
-                  <div className="text-xs sm:text-sm text-text-muted">
-                    Singles 2024
-                  </div>
+                  <div className="text-xs sm:text-sm text-text-muted">Singles 2024</div>
                 </div>
 
                 <div className="fade d5 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-green/50 transition-colors">
-                  <div className="font-mono text-xl sm:text-2xl font-bold text-green">
-                    +62.3U
+                  <div
+                    ref={count2}
+                    data-countup="62.3"
+                    data-prefix="+"
+                    data-suffix="U"
+                    data-decimals="1"
+                    className="font-mono text-xl sm:text-2xl font-bold text-green"
+                  >
+                    +0.0U
                   </div>
-                  <div className="text-xs sm:text-sm text-text-muted">
-                    Multis 2025
-                  </div>
+                  <div className="text-xs sm:text-sm text-text-muted">Multis 2025</div>
                 </div>
 
                 <div className="fade d6 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-green/50 transition-colors col-span-2 md:col-span-1">
-                  <div className="font-mono text-xl sm:text-2xl font-bold text-green">
-                    +56.78U
+                  <div
+                    ref={count3}
+                    data-countup="56.78"
+                    data-prefix="+"
+                    data-suffix="U"
+                    data-decimals="2"
+                    className="font-mono text-xl sm:text-2xl font-bold text-green"
+                  >
+                    +0.00U
                   </div>
-                  <div className="text-xs sm:text-sm text-text-muted">
-                    Singles 2026 YTD
-                  </div>
+                  <div className="text-xs sm:text-sm text-text-muted">Singles 2026 YTD</div>
                 </div>
 
               </div>
