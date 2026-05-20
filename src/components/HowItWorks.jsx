@@ -34,7 +34,7 @@ export default function HowItWorks() {
     {
       num: 2,
       icon: Bell,
-      title: 'Get Daily Picks',
+      title: 'Get Daily Gameday Picks',
       desc: 'Receive structured, high-confidence betting tips delivered straight to your phone every day.'
     },
     {

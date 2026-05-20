@@ -80,7 +80,7 @@ export default function Hero() {
               >
                 <Shield size={18} className="text-green flex-shrink-0 mt-0" />
                 <span>
-                  $150 season pass refund if no profit by Round 12
+                  Join by Round 14. No profit. Full refund.
                 </span>
               </div>
 
@@ -92,7 +92,7 @@ export default function Hero() {
 
               {/* Subtext */}
               <p className="fade d3 text-sm sm:text-base md:text-lg text-text-muted max-w-2xl mb-8 md:mb-10 leading-relaxed">
-                Daily sports betting tips delivered straight to your Telegram. Fully tracked in units with transparent results.
+                 Game day picks delivered straight to your Telegram. Fully tracked in units with transparent results.
               </p>
 
               {/* Stats */}

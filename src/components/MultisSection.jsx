@@ -174,7 +174,7 @@ export default function MultisSection() {
                       className="text-text-muted leading-relaxed"
                       delay={0.08}
                     >
-                      Multis combine 2-5 individual picks into one multi-leg bet. If all legs hit, your returns are multiplied. Lower stake, higher potential upside. Perfect for managed risk.
+                      Multis combine 2-10 individual picks into one multi-leg bet. If all legs hit, your returns are multiplied. Lower stake, higher potential upside. Perfect for managed risk.
                     </Animated>
                   </div>
 

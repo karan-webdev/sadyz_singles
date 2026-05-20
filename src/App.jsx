@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import HowItWorks from './components/HowItWorks'
+import Testimonails from './components/Testimonials'
 import SinglesSoldOut from './components/SinglesSoldOut'
 import MultisSection from './components/MultisSection'
 import TransparencySection from './components/TransparencySection'
@@ -73,6 +74,7 @@ function App() {
     <div className="min-h-screen bg-bg text-text">
       <Nav />
       <Hero />
+      <Testimonails />
       <HowItWorks />
       <SinglesSoldOut />
       <MultisSection />
