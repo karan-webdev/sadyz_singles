@@ -139,7 +139,7 @@ export default function MultisSection() {
       <section id="multis" className="py-24 bg-bg/50 border-y border-text-dim/10">
         <div className="max-w-7xl mx-auto px-6">
           <div ref={headerRef} className="mb-16">
-            <div className={`fade d1 text-green text-sm font-semibold tracking-wide uppercase mb-2 ${headerVisible ? "show" : ""}`}>
+            <div className={`fade d1 text-blue text-sm font-semibold tracking-wide uppercase mb-2 ${headerVisible ? "show" : ""}`}>
               MAIN OFFER — OPEN NOW
             </div>
 
@@ -176,6 +176,25 @@ export default function MultisSection() {
                     >
                       Multis combine 2-10 individual picks into one multi-leg bet. If all legs hit, your returns are multiplied. Lower stake, higher potential upside. Perfect for managed risk.
                     </Animated>
+
+                    <Animated
+  as="div"
+  threshold={0.12}
+  rootMargin="0px 0px -10% 0px"
+  className="mt-5 p-4 border-y border-text-dim/10"
+  delay={0.15}
+>
+  <div className="text-1xl  font-bricolage font-semibold text-blue mb-2">
+    Betting structure
+  </div>
+
+  <ul className="space-y-1 text-sm text-text-muted">
+    <li>• Around 50/50 promo + non-promo bets</li>
+    <li>• All picks +EV (expected value) focused</li>
+    <li>• Mix of SGM & CGM (same game / cross-game multis)</li>
+    <li>• Wide bookie coverage shown in slips</li>
+  </ul>
+</Animated>
                   </div>
 
                   <div className="space-y-3">
@@ -193,7 +212,7 @@ export default function MultisSection() {
                       {
                         icon: RefreshCw,
                         title: '100% Refund Guarantee',
-                        desc: 'No profit by Round 14? Full money back.'
+                        desc: 'Join before Round 14 and full refund if we don’t make profit between then & GF.'
                       }
                     ].map((item, i) => {
                       const Icon = item.icon
@@ -208,7 +227,7 @@ export default function MultisSection() {
                           delay={0.15 * i + 0.2}
                         >
                           <div className="flex gap-3">
-                            <Icon size={20} className="text-green flex-shrink-0 mt-1" />
+                            <Icon size={20} className="text-blue flex-shrink-0 mt-1" />
 
                             <div>
                               <div className="font-semibold text-text">
@@ -232,12 +251,12 @@ export default function MultisSection() {
                 as="div"
                 threshold={0.12}
                 rootMargin="0px 0px -10% 0px"
-                className={`card delay1 p-6 rounded-xl border border-text-dim/30 bg-bg-card hover:border-green/50 transition-all`}
+                className={`card delay1 p-6 rounded-xl border border-text-dim/30 bg-bg-card hover:border-blue/50 transition-all`}
                 delay={0}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <div className="text-green text-xs font-semibold tracking-wide uppercase">
+                    <div className="text-blue text-xs font-semibold tracking-wide uppercase">
                       Weekly Pass
                     </div>
 
@@ -260,7 +279,7 @@ export default function MultisSection() {
                     delay={0.05}
                   >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
-                    <span><strong className="text-green">3-5 multis</strong> per week</span>
+                    <span>Roughly <strong className="text-blue">20 multis</strong> per round</span>
                   </Animated>
 
                   <Animated
@@ -290,7 +309,7 @@ export default function MultisSection() {
                   as="button"
                   threshold={0.12}
                   rootMargin="0px 0px -10% 0px"
-                  className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all item-fade"
+                  className="btn-primary w-full py-2 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all item-fade"
                   delay={0.2}
                 >
                   Get Weekly
@@ -311,16 +330,16 @@ export default function MultisSection() {
                 as="div"
                 threshold={0.12}
                 rootMargin="0px 0px -10% 0px"
-                className={`card delay2 relative p-6 rounded-xl border-2 border-green bg-bg-card hover:border-green transition-all ring-1 ring-green/30`}
+                className={`card delay2 relative p-6 rounded-xl border-2 border-blue bg-bg-card hover:border-blue transition-all ring-1 ring-blue/30`}
                 delay={0}
               >
-                <div className="absolute -top-3 left-6 px-2 py-1 bg-green text-black text-xs font-bold rounded-full">
+                <div className="absolute -top-3 left-6 px-2 py-1 bg-blue text-black text-xs font-bold rounded-full">
                   BEST VALUE
                 </div>
 
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <div className="text-green text-xs font-semibold tracking-wide uppercase">
+                    <div className="text-blue text-xs font-semibold tracking-wide uppercase">
                       Season Pass
                     </div>
 
@@ -343,7 +362,7 @@ export default function MultisSection() {
                     delay={0.05}
                   >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
-                    <span><strong className="text-green">3-5 multis</strong> per week</span>
+                    <span>Roughly <strong className="text-blue">20 multis</strong> per round</span>
                   </Animated>
 
                   <Animated
@@ -376,7 +395,7 @@ export default function MultisSection() {
                     delay={0.2}
                   >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
-                    <span>Refund guarantee</span>
+                    <span>Full refund guarantee</span>
                   </Animated>
                 </ul>
 
@@ -384,7 +403,7 @@ export default function MultisSection() {
                   as="button"
                   threshold={0.12}
                   rootMargin="0px 0px -10% 0px"
-                  className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all item-fade"
+                  className="btn-primary w-full py-2 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all item-fade"
                   delay={0.25}
                 >
                   Get Season Pass

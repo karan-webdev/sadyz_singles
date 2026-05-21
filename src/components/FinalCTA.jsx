@@ -69,12 +69,12 @@ export default function FinalCTA() {
         }
       `}</style>
 
-      <div className="absolute inset-0 bg-green/5 blur-3xl opacity-40" />
+      <div className="absolute inset-0 bg-blue/5 blur-3xl opacity-40" />
 
       <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
 
         {/* TITLE */}
-        <div ref={addRef} className="reveal text-green text-sm font-semibold tracking-wide uppercase mb-4">
+        <div ref={addRef} className="reveal text-blue text-sm font-semibold tracking-wide uppercase mb-4">
           GET STARTED TODAY
         </div>
 
@@ -91,14 +91,14 @@ export default function FinalCTA() {
 
           <button
             ref={addRef}
-            className="btn px-8 py-4 rounded-lg bg-green text-black font-bold text-lg flex items-center justify-center gap-2"
+            className="btn btn-primary px-8 py-4 rounded-lg bg-blue hover:bg-blue-dim transition-all text-black font-bold text-lg flex items-center justify-center gap-2"
           >
             Get Season Pass <ArrowRight size={20} />
           </button>
 
           <button
             ref={addRef}
-            className="btn px-8 py-4 rounded-lg border-2 border-gray-300 text-black font-bold text-lg"
+            className="btn px-8 py-4 rounded-lg border-2 border-gray-300 text-black hover:bg-black/5 transition-all font-bold text-lg"
           >
             Join Multis (Open Now)
           </button>
@@ -109,17 +109,17 @@ export default function FinalCTA() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
 
           <div ref={addRef} className="badge flex items-center gap-2">
-            <Check size={18} className="text-green" />
+            <Check size={18} className="text-blue" />
             Full money-back guarantee
           </div>
 
           <div ref={addRef} className="badge flex items-center gap-2">
-            <Lock size={18} className="text-green" />
+            <Lock size={18} className="text-blue" />
             100% transparent tracking
           </div>
 
           <div ref={addRef} className="badge flex items-center gap-2">
-            <Check size={18} className="text-green" />
+            <Check size={18} className="text-blue" />
             No hidden fees
           </div>
 

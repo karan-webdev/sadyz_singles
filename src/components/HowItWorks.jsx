@@ -109,14 +109,14 @@ export default function HowItWorks() {
         .c3 { transition-delay: 0.3s; }
       `}</style>
 
-      <section className="py-24 bg-[#f6f7f9] border-y border-gray-200">
+      <section id="how-it-works" className="py-24 bg-[#f6f7f9] border-y border-gray-200">
 
         <div className="max-w-7xl mx-auto px-6">
 
           {/* HEADER */}
           <div ref={headerRef} className="mb-16">
 
-            <div className={`fade-up d1 text-green text-sm font-semibold tracking-wide uppercase mb-2 ${headerVisible ? "show" : ""}`}>
+            <div className={`fade-up d1 text-blue text-sm font-semibold tracking-wide uppercase mb-2 ${headerVisible ? "show" : ""}`}>
               SIMPLE 3-STEP SYSTEM
             </div>
 
@@ -153,8 +153,8 @@ export default function HowItWorks() {
                 >
 
                   <div className="mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-green/10 border border-green/20 flex items-center justify-center">
-                      <Icon className="text-green" size={22} />
+                    <div className="w-12 h-12 rounded-xl bg-blue/10 border border-blue/20 flex items-center justify-center">
+                      <Icon className="text-blue" size={22} />
                     </div>
                   </div>
 

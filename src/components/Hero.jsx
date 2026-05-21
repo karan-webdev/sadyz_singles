@@ -74,20 +74,28 @@ export default function Hero() {
             <div className="flex-1 md:pr-10">
 
               {/* Guarantee */}
-              <div
+              {/* <div
                 data-reveal
                 className="fade d1 flex items-start sm:items-center gap-3 mb-6 text-xs sm:text-sm text-text-muted max-w-xl"
               >
-                <Shield size={18} className="text-green flex-shrink-0 mt-0" />
+                
+              </div> */}
+
+              <div
+          data-reveal
+          data-reveal-effect="fade"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue/30 bg-blue/5 text-blue text-xs sm:text-sm font-medium mb-6 md:mb-8"
+        >
+          <Shield size={18} className="text-blue flex-shrink-0 mt-0" />
                 <span>
-                  $150 season pass full refund if no profit by Round 14
+                  Full refund if no profit by Round 14 (Season Pass)
                 </span>
-              </div>
+        </div>
 
               {/* Headline */}
               <h1 className="fade d2 font-bricolage font-bold mb-5 md:mb-6 leading-tight text-3xl sm:text-4xl md:text-6xl">
                 Consistent edges. <span className="whitespace-nowrap">Transparent results.</span><br />
-                <em className="text-green not-italic">Every single week.</em>
+                <em className="text-blue not-italic">Every single week.</em>
               </h1>
 
               {/* Subtext */}
@@ -98,7 +106,7 @@ export default function Hero() {
               {/* Stats */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-8 md:mb-10 max-w-2xl">
 
-                <div className="fade d4 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-green/50 transition-colors">
+                <div className="fade d4 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-blue/50 transition-colors">
                   <div
                     ref={count1}
                     data-countup="127.8"
@@ -112,7 +120,7 @@ export default function Hero() {
                   <div className="text-xs sm:text-sm text-text-muted">Singles 2024</div>
                 </div>
 
-                <div className="fade d5 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-green/50 transition-colors">
+                <div className="fade d5 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-blue/50 transition-colors">
                   <div
                     ref={count2}
                     data-countup="62.3"
@@ -126,7 +134,7 @@ export default function Hero() {
                   <div className="text-xs sm:text-sm text-text-muted">Multis 2025</div>
                 </div>
 
-                <div className="fade d6 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-green/50 transition-colors col-span-2 md:col-span-1">
+                <div className="fade d6 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-blue/50 transition-colors col-span-2 md:col-span-1">
                   <div
                     ref={count3}
                     data-countup="56.78"
@@ -145,7 +153,7 @@ export default function Hero() {
               {/* CTAs */}
               <div className="fade d7 flex flex-col sm:flex-row gap-3 sm:gap-4">
 
-                <button className="btn-primary px-6 sm:px-8 py-3 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all flex items-center justify-center gap-2">
+                <button className="btn-primary px-6 sm:px-8 py-3 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all flex items-center justify-center gap-2">
                   Get Season Pass <ArrowRight size={18} />
                 </button>
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import HowItWorks from './components/HowItWorks'
+import WhyMostLose from './components/WhyMostLose'
 import Testimonails from './components/Testimonials'
 import SinglesSoldOut from './components/SinglesSoldOut'
 import MultisSection from './components/MultisSection'
@@ -81,6 +82,7 @@ function App() {
       <TransparencySection />
       <ProofSection />
       <FinalCTA />
+      <WhyMostLose />
       <Footer />
     </div>
   )

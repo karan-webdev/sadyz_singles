@@ -56,12 +56,12 @@ export default function SinglesSoldOut() {
   }
 
   const features = [
-    'Daily betting tips sent to Telegram',
+    'Daily game day betting tips sent to Telegram',
     'Fully tracked results in units',
     'Detailed stake sizing guidance',
     'Access to premium research',
     'Exclusive community access',
-    'Full refund guarantee',
+    'Full refund guarantee if no profit by Round 14',
   ]
 
   const results = [
@@ -152,7 +152,7 @@ export default function SinglesSoldOut() {
 
             {/* LEFT */}
             <div>
-              <div ref={labelRef} className="rv text-green text-sm font-semibold tracking-wide uppercase mb-2">
+              <div ref={labelRef} className="rv text-blue text-sm font-semibold tracking-wide uppercase mb-2">
                 CHANNEL STATUS
               </div>
 
@@ -187,12 +187,12 @@ export default function SinglesSoldOut() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-                  className="flex-1 px-4 py-3 rounded-lg bg-bg-card border border-text-dim/20 text-white focus:outline-none focus:border-green/50 transition-colors"
+                  className="flex-1 px-4 py-3 rounded-lg bg-bg-card border border-text-dim/20 text-white focus:outline-none focus:border-blue/50 transition-colors"
                 />
                 <button
                   onClick={handleSubmit}
                   className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                    submitted ? 'bg-green text-black' : 'bg-green text-black hover:bg-green-dim'
+                    submitted ? 'bg-blue text-black' : 'bg-blue text-black hover:bg-blue-dim'
                   }`}
                 >
                   {submitted ? '✓ Added' : 'Join'}
@@ -206,7 +206,7 @@ export default function SinglesSoldOut() {
 
             {/* RIGHT */}
             <div className="p-6 rounded-xl bg-bg-card border border-text-dim/20">
-              <div ref={cardLabelRef} className="rv text-green text-xs font-semibold tracking-wide uppercase mb-4">
+              <div ref={cardLabelRef} className="rv text-blue text-xs font-semibold tracking-wide uppercase mb-4">
                 Season Results
               </div>
 
@@ -231,7 +231,7 @@ export default function SinglesSoldOut() {
 
                       <div ref={barRefs[i]} className="h-2 bg-bg-card-2 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-green to-green/70 rounded-full transition-all duration-[1200ms] ease-out"
+                          className="h-full bg-gradient-to-r from-blue to-blue/70 rounded-full transition-all duration-[1200ms] ease-out"
                           style={{ width: barVisible[i] ? `${percent}%` : '0%' }}
                         />
                       </div>

@@ -99,7 +99,7 @@ export default function TransparencySection() {
           {/* HEADER */}
           <div ref={headerRef} className="mb-16">
 
-            <div className={`fade-up d1 text-green text-sm font-semibold tracking-wide uppercase mb-2 ${headerVisible ? "show" : ""}`}>
+            <div className={`fade-up d1 text-blue text-sm font-semibold tracking-wide uppercase mb-2 ${headerVisible ? "show" : ""}`}>
               HOW WE TRACK
             </div>
 
@@ -122,8 +122,8 @@ export default function TransparencySection() {
                   className={`card c${i + 1} ${visible[i] ? "show" : ""} p-6 rounded-2xl bg-bg-card border border-white/5`}
                 >
 
-                  <div className="w-12 h-12 rounded-xl bg-green/10 border border-green/20 flex items-center justify-center mb-4 transition-colors">
-                    <Icon className="text-green" size={22} />
+                  <div className="w-12 h-12 rounded-xl bg-blue/10 border border-blue/20 flex items-center justify-center mb-4 transition-colors">
+                    <Icon className="text-blue" size={22} />
                   </div>
 
                   <h3 className="text-lg font-bricolage font-bold mb-2 text-white">

@@ -12,6 +12,11 @@ export default {
           dim: '#16a34a',
           border: '#86efac',
         },
+        blue: {
+          DEFAULT: 'rgb(65, 133, 243)',   
+          dim:     '#1766de',   
+          border:  '#4d8ff5',
+        },
         bg: {
           DEFAULT: '#0a0a0a',
           card: '#1a1a1a',

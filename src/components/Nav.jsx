@@ -31,10 +31,12 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
         {/* LOGO */}
-        <div className="flex items-baseline gap-1 font-bricolage font-bold text-lg">
+        <a href='#'>
+        <div  className="flex items-baseline cursor-pointer gap-1 font-bricolage font-bold text-lg">
           <span className="text-text">SADZYS</span>
           <span className="text-text/70">SINGLES</span>
         </div>
+        </a>
 
         {/* DESKTOP LINKS */}
         <div className="hidden md:flex items-center gap-8">
@@ -54,7 +56,7 @@ export default function Nav() {
 
           <a
             href="#multis"
-            className="btn-primary flex items-center gap-2 px-4 py-2 rounded-lg bg-green text-black font-semibold text-sm hover:bg-green-dim transition-all transform hover:-translate-y-0.5"
+            className="btn-primary flex items-center gap-2 px-4 py-2 rounded-lg bg-blue text-black font-semibold text-sm hover:bg-blue-dim transition-all transform"
           >
             Join Multis <ChevronRight size={16} />
           </a>
@@ -63,7 +65,7 @@ export default function Nav() {
         {/* MOBILE CTA ONLY */}
         <a
           href="#multis"
-          className="btn-primary md:hidden flex items-center gap-2 px-4 py-2 rounded-lg bg-green text-black font-semibold text-sm hover:bg-green-dim transition-all"
+          className="btn-primary md:hidden flex items-center gap-2 px-4 py-2 rounded-lg bg-blue text-black font-semibold text-sm hover:bg-blue-dim transition-all"
         >
           Join Multis <ChevronRight size={16} />
         </a>

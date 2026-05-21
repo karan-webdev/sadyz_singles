@@ -13,7 +13,7 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-text-muted max-w-xs mb-5">
-              Daily sports betting tips delivered with complete transparency and consistent results.
+              Every game day, sports betting tips delivered with complete transparency and consistent results.
             </p>
 
             {/* X SOCIAL LINK */}
@@ -21,7 +21,7 @@ export default function Footer() {
               href="https://x.com/sadzyssingles?s=21&t=MzTma9zm5yShOSx-WTX01w"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-text-muted hover:text-green transition-colors cursor-pointer group w-fit"
+              className="flex items-center gap-2 text-text-muted hover:text-blue transition-colors cursor-pointer group w-fit"
             >
               {/* X LOGO SVG */}
               <svg
@@ -45,17 +45,17 @@ export default function Footer() {
               <h4 className="font-semibold text-text mb-3">Product</h4>
               <ul className="space-y-2 text-sm text-text-muted">
                 <li>
-                  <a href="#how-it-works" className="hover:text-green transition-colors">
+                  <a href="#how-it-works" className="hover:text-blue transition-colors">
                     How It Works
                   </a>
                 </li>
                 <li>
-                  <a href="#proof" className="hover:text-green transition-colors">
+                  <a href="#proof" className="hover:text-blue transition-colors">
                     Results
                   </a>
                 </li>
                 <li>
-                  <a href="#multis" className="hover:text-green transition-colors">
+                  <a href="#multis" className="hover:text-blue transition-colors">
                     Join Now
                   </a>
                 </li>
@@ -66,17 +66,17 @@ export default function Footer() {
               <h4 className="font-semibold text-text mb-3">Legal</h4>
               <ul className="space-y-2 text-sm text-text-muted">
                 <li>
-                  <a href="#" className="hover:text-green transition-colors">
+                  <a href="#" className="hover:text-blue transition-colors">
                     Terms
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-green transition-colors">
+                  <a href="#" className="hover:text-blue transition-colors">
                     Privacy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-green transition-colors">
+                  <a href="#" className="hover:text-blue transition-colors">
                     Contact
                   </a>
                 </li>

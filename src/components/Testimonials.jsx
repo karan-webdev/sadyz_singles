@@ -50,7 +50,7 @@ export default function TestimonialSection() {
       <div className="max-w-6xl mx-auto px-6">
 
         {/* HEADER */}
-        <div className="text-green-500 text-sm font-semibold uppercase tracking-widest mb-2">
+        <div className="text-blue text-sm font-semibold uppercase tracking-widest mb-2">
             Member Snapshots
         </div>
         <h2 className="text-4xl font-bold mb-2">
@@ -118,7 +118,7 @@ export default function TestimonialSection() {
               onClick={() => setActive(i)}
               className={`w-20 h-14 rounded-lg overflow-hidden border ${
                 i === active
-                  ? "border-green-400"
+                  ? "border-blue-dim"
                   : "border-white/10 opacity-50"
               }`}
             >

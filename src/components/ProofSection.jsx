@@ -240,7 +240,7 @@ export default function ProofSection() {
           flex-shrink: 0;
         }
         .carousel-dot.active {
-          background: #4ade80;
+          background: #3b82f6;
           width: 18px;
           border-radius: 3px;
         }
@@ -303,12 +303,12 @@ export default function ProofSection() {
         }
       `}</style>
 
-      <section className="py-24 bg-[#0a0a0a] text-white">
+      <section id="proof" className="py-24 bg-[#0a0a0a] text-white">
         <div className="max-w-6xl mx-auto px-6">
 
           {/* HEADER */}
           <div className="mb-14">
-            <div ref={addRef} className="reveal up text-green-500 text-sm font-semibold uppercase tracking-widest mb-2">
+            <div ref={addRef} className="reveal up text-blue text-sm font-semibold uppercase tracking-widest mb-2">
               Proof of Results
             </div>
             <h2 ref={addRef} className="reveal up text-4xl font-bold mb-2">
