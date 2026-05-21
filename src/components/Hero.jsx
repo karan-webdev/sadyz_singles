@@ -80,7 +80,7 @@ export default function Hero() {
               >
                 <Shield size={18} className="text-green flex-shrink-0 mt-0" />
                 <span>
-                  Join by Round 14. No profit. Full refund.
+                  $150 season pass full refund if no profit by Round 14
                 </span>
               </div>
 
