@@ -193,7 +193,7 @@ export default function MultisSection() {
                       {
                         icon: RefreshCw,
                         title: '100% Refund Guarantee',
-                        desc: 'No profit by Round 12? Full money back.'
+                        desc: 'No profit by Round 14? Full money back.'
                       }
                     ].map((item, i) => {
                       const Icon = item.icon
@@ -238,15 +238,15 @@ export default function MultisSection() {
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="text-green text-xs font-semibold tracking-wide uppercase">
-                      Monthly Pass
+                      Weekly Pass
                     </div>
 
                     <div className="text-3xl font-bold text-text font-mono mt-2">
-                      $29
+                      $12.50
                     </div>
 
                     <div className="text-sm text-text-muted">
-                      per month
+                      per week
                     </div>
                   </div>
                 </div>
@@ -293,7 +293,7 @@ export default function MultisSection() {
                   className="btn-primary w-full py-2 rounded-lg bg-green text-black font-semibold hover:bg-green-dim transition-all item-fade"
                   delay={0.2}
                 >
-                  Get Monthly
+                  Get Weekly
                 </Animated>
 
                 <Animated

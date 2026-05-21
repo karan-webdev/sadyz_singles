@@ -83,7 +83,7 @@ export default function FinalCTA() {
         </h2>
 
         <p ref={addRef} className="reveal text-gray-600 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-          Join thousands of punters getting consistent results. No hype. No complicated systems. Just proven picks for every game day.
+          Join hundreds of punters getting consistent results. No hype. No complicated systems. Just proven picks for every game day.
         </p>
 
         {/* BUTTONS */}
