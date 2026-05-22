@@ -101,3 +101,53 @@ body {
   0%   { transform: translateX(-100%); }
   30%, 100% { transform: translateX(100%); }
 }
+
+.shield-flicker {
+  animation: shieldFlicker 1.5s ease-in-out infinite;
+}
+
+@keyframes shieldFlicker {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  20% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+
+  40% {
+    opacity: 0.35;
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.badge-scale {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  animation: badgeBreath 2.8s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes badgeBreath {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
