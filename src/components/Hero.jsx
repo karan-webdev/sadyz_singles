@@ -84,11 +84,11 @@ export default function Hero() {
               <div
           data-reveal
           data-reveal-effect="fade"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue/30 bg-blue/5 text-blue text-xs sm:text-sm font-medium mb-6 md:mb-8"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue/30 bg-blue/5 text-blue pulse-element  text-sm sm:text-sm font-medium mb-6 md:mb-8"
         >
           <Shield size={18} className="text-blue flex-shrink-0 mt-0" />
                 <span>
-                  Full refund if no profit by Round 14 (Season Pass)
+                   Full refund if no profit between Round 14 and the Grand Final (Season Pass)
                 </span>
         </div>
 

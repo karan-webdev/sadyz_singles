@@ -39,9 +39,6 @@ body {
 }
 
 
-
-
-
 [data-reveal][data-reveal-effect="left"].reveal-visible {
   animation-name: revealSlideLeft;
   animation-duration: 0.8s;

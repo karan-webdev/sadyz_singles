@@ -61,7 +61,7 @@ export default function SinglesSoldOut() {
     'Detailed stake sizing guidance',
     'Access to premium research',
     'Exclusive community access',
-    'Full refund guarantee if no profit by Round 14',
+    'Full refund guarantee if no profit from Round 14 to Grand Final',
   ]
 
   const results = [
