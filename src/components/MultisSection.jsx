@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { CheckCircle, RefreshCw, Users } from 'lucide-react'
+import { CheckCircle, RefreshCw, Users, Shield } from 'lucide-react'
 
 function useInView(ref, options = {}) {
   const [inView, setInView] = useState(false)
@@ -197,51 +197,31 @@ export default function MultisSection() {
 </Animated>
                   </div>
 
-                  <div className="space-y-3">
-                    {[
-                      {
-                        icon: CheckCircle,
-                        title: 'Fully Tracked',
-                        desc: 'Every multi logged with odds and stake'
-                      },
-                      {
-                        icon: Users,
-                        title: 'Unlimited Members',
-                        desc: 'No caps. As many people as want to join'
-                      },
-                      {
-                        icon: RefreshCw,
-                        title: '100% Refund Guarantee',
-                        desc: 'Join before Round 14 and full refund if we don’t make profit between then & GF.'
-                      }
-                    ].map((item, i) => {
-                      const Icon = item.icon
+                     {/* TRUST BAND (REFUND GUARANTEE - UPGRADED) */}
+                  <Animated
+                    as="div"
+                    threshold={0.12}
+                    rootMargin="0px 0px -10% 0px"
+                    className="mt-6 p-4 rounded-lg border border-blue/30 bg-blue/5 flex items-start gap-3"
+                    delay={0.25}
+                  >
+                  
 
-                      return (
-                        <Animated
-                          key={i}
-                          as="div"
-                          threshold={0.12}
-                          rootMargin="0px 0px -10% 0px"
-                          className="feature"
-                          delay={0.15 * i + 0.2}
-                        >
-                          <div className="flex gap-3">
-                            <Icon size={20} className="text-blue flex-shrink-0 mt-1" />
+                    
+                    <div>
+                     <div className="flex items-center gap-2 text-xs text-blue uppercase tracking-wide mb-2">
+                        <Shield size={16} className="text-blue flex-shrink-0" />
+                        <span>Risk Protection</span>
+                     </div>
+                      <div className="font-semibold text-text">
+                        100% Refund Guarantee
+                      </div>
+                      <div className="text-sm text-text-muted">
+                        Join before Round 14 - if there’s no profit between then and the Grand Final, you get a full refund.
+                      </div>
+                    </div>
+                  </Animated>
 
-                            <div>
-                              <div className="font-semibold text-text">
-                                {item.title}
-                              </div>
-                              <div className="text-sm text-text-muted">
-                                {item.desc}
-                              </div>
-                            </div>
-                          </div>
-                        </Animated>
-                      )
-                    })}
-                  </div>
                 </div>
               </div>
             </div>
@@ -395,7 +375,7 @@ export default function MultisSection() {
                     delay={0.2}
                   >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
-                    <span>Full refund guarantee</span>
+                    <span class="text-blue font-bold">Full refund guarantee</span>
                   </Animated>
                 </ul>
 
