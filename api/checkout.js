@@ -1,53 +1,67 @@
-const stripe = require("stripe")(process.env.STRIPE_SK_KEY);
+import Stripe from "stripe";
 
-exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405 };
+const stripe = new Stripe(process.env.STRIPE_SK_KEY);
+
+// Get the app URL from environment or use default for local development
+const getAppUrl = () => {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
   }
-
-  const { productId } = JSON.parse(event.body);
-
-  const products = {
-    season: {
-      stripeProductId: process.env.VITE_SEASON_PRODUCT_ID,
-      name: "Season Pass",
-      amount: 15000,
-    },
-    weekly: {
-      stripeProductId: process.env.VITE_MULTI_PRODUCT_ID,
-      name: "Weekly Pass",
-      amount: 1250,
-    },
-  };
-
-  const product = products[productId];
-
-  if (!product || !product.stripeProductId) {
-    return { statusCode: 400, body: "Invalid product" };
-  }
-
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "aud",
-          product: product.stripeProductId,
-          unit_amount: product.amount,
-        },
-        quantity: 1,
-      },
-    ],
-    success_url: "http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: "http://localhost:5173/",
-    metadata: {
-      product: product.name,
-    },
-  });
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ url: session.url }),
-  };
+  return process.env.APP_URL || "http://localhost:5173";
 };
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  try {
+    const { productId } = req.body;
+
+    const products = {
+      season: {
+        stripeProductId: process.env.VITE_SEASON_PRODUCT_ID,
+        name: "Season Pass",
+        amount: 15000,
+      },
+      weekly: {
+        stripeProductId: process.env.VITE_MULTI_PRODUCT_ID,
+        name: "Weekly Pass",
+        amount: 1250,
+      },
+    };
+
+    const product = products[productId];
+
+    if (!product || !product.stripeProductId) {
+      return res.status(400).json({ error: "Invalid product" });
+    }
+
+    const appUrl = getAppUrl();
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "aud",
+            product: product.stripeProductId,
+            unit_amount: product.amount,
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: `${appUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appUrl}/`,
+      metadata: {
+        product: product.name,
+      },
+    });
+
+    return res.status(200).json({ url: session.url });
+  } catch (error) {
+    console.error("Checkout error:", error);
+    return res.status(500).json({ error: "Failed to create checkout session" });
+  }
+}

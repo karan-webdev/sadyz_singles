@@ -12,9 +12,6 @@
   "dependencies": {
     "@stripe/stripe-js": "^9.7.0",
     "canvas-confetti": "^1.9.4",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
     "lucide-react": "^0.263.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
