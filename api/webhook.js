@@ -121,44 +121,54 @@ export default async function handler(req, res) {
       line-height:1.5;
       color:rgba(255,255,255,0.7);
     ">
-      Your Telegram invite link will be sent shortly. If you don't receive it within 24 hours, reach out to us.
+      Join AFL MULTIS 2026 using the button below.
     </p>
 
     <!-- CTA Button -->
-    <div style="margin:24px 0;">
-      <a
-        href="https://t.me/+Your_Telegram_Channel"
-        style="
-          display:inline-block;
-          background:#6366f1;
-          color:#ffffff;
-          padding:12px 28px;
-          border-radius:8px;
-          text-decoration:none;
-          font-size:14px;
-          font-weight:600;
-        "
-      >
-        Join Telegram
-      </a>
-    </div>
+    <a href="https://t.me/+YJZ2ta47kkwxMmY1"
+      style="
+        display:inline-block;
+        background:#3b82f6;
+        color:#0a0a0a;
+        padding:12px 18px;
+        border-radius:10px;
+        font-weight:600;
+        text-decoration:none;
+      ">
+      Join Telegram
+    </a>
 
-    <!-- Footer -->
+    <!-- Fallback -->
     <p style="
-      margin:28px 0 0;
-      padding-top:18px;
-      border-top:1px solid rgba(255,255,255,0.08);
+      margin:16px 0 0;
       font-size:12px;
       line-height:1.5;
       color:rgba(255,255,255,0.5);
     ">
-      Questions? Reply to this email or contact our support team. We're here to help!
+      If the button doesn’t work, copy and paste this link into your browser:<br />
+      <span style="color:#3b82f6;">
+        https://t.me/+YJZ2ta47kkwxMmY1
+      </span>
     </p>
 
-  </div>
+    <!-- Footer -->
+    <div style="
+      margin-top:26px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,0.08);
+    ">
+      <p style="
+        margin:0;
+        font-size:12px;
+        color:rgba(255,255,255,0.4);
+      ">
+        If you didn’t expect this email, you can safely ignore it.
+      </p>
+    </div>
 
+  </div>
 </div>
-            `,
+`,
           });
           console.log(`Email sent to ${customerEmail}`);
         } catch (emailError) {
