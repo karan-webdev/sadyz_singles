@@ -2,6 +2,8 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SK_KEY);
 
+console.log("ENV CHECK:", process.env.STRIPE_SK_KEY);
+
 // Get the app URL from environment or use default for local development
 const getAppUrl = () => {
   if (process.env.VERCEL_URL) {
