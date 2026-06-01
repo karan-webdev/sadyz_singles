@@ -151,13 +151,16 @@ export default function Hero() {
               {/* CTAs */}
               <div className="fade d7 flex flex-col sm:flex-row gap-3 sm:gap-4">
 
-                <button className="btn-primary px-6 sm:px-8 py-3 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all flex items-center justify-center gap-2">
+                
+                <a href="#multis" className="btn-primary text-center px-6 sm:px-8 py-3 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all flex items-center justify-center gap-2">
                   Get Season Pass <ArrowRight size={18} />
-                </button>
+                </a>
 
-                <button className="px-6 sm:px-8 py-3 rounded-lg border border-white/10 text-white font-semibold hover:bg-white/5 transition-all">
+                <a href="#singles-waitlist" className="px-6 sm:px-8 py-3 text-center rounded-lg border border-white/10 text-white font-semibold hover:bg-white/5 transition-all" >
+                
                   Join Waitlist
-                </button>
+               
+                </a>
 
               </div>
 

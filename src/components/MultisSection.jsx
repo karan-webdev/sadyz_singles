@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { CheckCircle, RefreshCw, Users, Shield } from 'lucide-react'
+import { createCheckoutSession } from '../utils/stripe'
 
 function useInView(ref, options = {}) {
   const [inView, setInView] = useState(false)
@@ -30,7 +31,7 @@ function useInView(ref, options = {}) {
   return inView
 }
 
-function Animated({ children, className = '', delay = 0, as: Tag = 'div', threshold, rootMargin }) {
+function Animated({ children, className = '', delay = 0, as: Tag = 'div', threshold, rootMargin, ...rest }) {
   const ref = useRef(null)
   const visible = useInView(ref, { threshold, rootMargin })
 
@@ -39,6 +40,7 @@ function Animated({ children, className = '', delay = 0, as: Tag = 'div', thresh
       ref={ref}
       className={`${className} ${visible ? 'show' : ''}`}
       style={{ transitionDelay: `${delay}s` }}
+      {...rest}
     >
       {children}
     </Tag>
@@ -49,6 +51,20 @@ export default function MultisSection() {
   const headerRef = useRef(null)
   const leftRef = useRef(null)
   const rightRef = useRef(null)
+  const [loading, setLoading] = useState(null)
+  const [error, setError] = useState("")
+
+  const handleCheckout = async (productId) => {
+    setError("")
+    setLoading(productId)
+    try {
+      await createCheckoutSession(productId)
+    } catch (err) {
+      console.error(err)
+      setError("Failed to start checkout. Please try again.")
+      setLoading(null)
+    }
+  }
 
   const headerVisible = useInView(headerRef, {
     threshold: 0.12,
@@ -156,6 +172,13 @@ export default function MultisSection() {
             <div ref={leftRef}>
               <div className={`left-fade ${leftVisible ? "show" : ""}`}>
                 <div className="space-y-8">
+
+                  {error && (
+                    <div className="rounded-lg bg-red-50 border border-red-200 p-4 text-red-700">
+                      {error}
+                    </div>
+                  )}
+
                   <div>
                     <Animated
                       as="h3"
@@ -178,26 +201,25 @@ export default function MultisSection() {
                     </Animated>
 
                     <Animated
-  as="div"
-  threshold={0.12}
-  rootMargin="0px 0px -10% 0px"
-  className="mt-5 p-4 border-y border-text-dim/10"
-  delay={0.15}
->
-  <div className="text-1xl  font-bricolage font-semibold text-blue mb-2">
-    Betting structure
-  </div>
+                      as="div"
+                      threshold={0.12}
+                      rootMargin="0px 0px -10% 0px"
+                      className="mt-5 p-4 border-y border-text-dim/10"
+                      delay={0.15}
+                    >
+                      <div className="text-1xl  font-bricolage font-semibold text-blue mb-2">
+                        Betting structure
+                      </div>
 
-  <ul className="space-y-1 text-sm text-text-muted">
-    <li>• Around 50/50 promo + non-promo bets</li>
-    <li>• All picks +EV (expected value) focused</li>
-    <li>• Mix of SGM & CGM (same game / cross-game multis)</li>
-    <li>• Wide bookie coverage shown in slips</li>
-  </ul>
-</Animated>
+                      <ul className="space-y-1 text-sm text-text-muted">
+                        <li>• Around 50/50 promo + non-promo bets</li>
+                        <li>• All picks +EV (expected value) focused</li>
+                        <li>• Mix of SGM & CGM (same game / cross-game multis)</li>
+                        <li>• Wide bookie coverage shown in slips</li>
+                      </ul>
+                    </Animated>
                   </div>
 
-                     {/* TRUST BAND (REFUND GUARANTEE - UPGRADED) */}
                   <Animated
                     as="div"
                     threshold={0.12}
@@ -205,19 +227,16 @@ export default function MultisSection() {
                     className="mt-6 p-4 rounded-lg border border-blue/30 bg-blue/5 flex items-start gap-3"
                     delay={0.25}
                   >
-                  
-
-                    
                     <div>
-                     <div className="flex items-center gap-2 text-xs text-blue uppercase tracking-wide mb-2">
+                      <div className="flex items-center gap-2 text-xs text-blue uppercase tracking-wide mb-2">
                         <Shield size={16} className="text-blue flex-shrink-0" />
                         <span>Risk Protection</span>
-                     </div>
+                      </div>
                       <div className="font-semibold text-text">
                         100% Refund Guarantee
                       </div>
                       <div className="text-sm text-text-muted">
-                        Join before Round 14 - if there’s no profit between then and the Grand Final, you get a full refund.
+                        Join before Round 14 - if there's no profit between then and the Grand Final, you get a full refund.
                       </div>
                     </div>
                   </Animated>
@@ -289,10 +308,12 @@ export default function MultisSection() {
                   as="button"
                   threshold={0.12}
                   rootMargin="0px 0px -10% 0px"
-                  className="btn-primary w-full py-2 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all item-fade"
+                  onClick={() => handleCheckout("weekly")}
+                  disabled={loading !== null}
+                  className="btn-primary w-full py-2 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all item-fade disabled:opacity-50 disabled:cursor-not-allowed"
                   delay={0.2}
                 >
-                  Get Weekly
+                  {loading === "weekly" ? "Processing..." : "Get Weekly"}
                 </Animated>
 
                 <Animated
@@ -375,7 +396,7 @@ export default function MultisSection() {
                     delay={0.2}
                   >
                     <CheckCircle size={16} className="text-green flex-shrink-0" />
-                    <span class="text-blue font-bold">Full refund guarantee</span>
+                    <span className="text-blue font-bold">Full refund guarantee</span>
                   </Animated>
                 </ul>
 
@@ -383,10 +404,12 @@ export default function MultisSection() {
                   as="button"
                   threshold={0.12}
                   rootMargin="0px 0px -10% 0px"
-                  className="btn-primary w-full py-2 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all item-fade"
+                  onClick={() => handleCheckout("season")}
+                  disabled={loading !== null}
+                  className="btn-primary w-full py-2 rounded-lg bg-blue text-black font-semibold hover:bg-blue-dim transition-all item-fade disabled:opacity-50 disabled:cursor-not-allowed"
                   delay={0.25}
                 >
-                  Get Season Pass
+                  {loading === "season" ? "Processing..." : "Get Season Pass"}
                 </Animated>
 
                 <Animated

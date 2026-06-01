@@ -10,8 +10,12 @@ import TransparencySection from './components/TransparencySection'
 import ProofSection from './components/ProofSection'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
+import SuccessPage from './components/SuccessPage'
 
 function App() {
+  // Check if we're on the success page
+  const isSuccessPage = window.location.pathname === '/success'
+
   useEffect(() => {
     // springy easing with slight overshoot for a more noticeable reveal
     const easeOutBack = (t) => {
@@ -70,6 +74,10 @@ function App() {
 
     return () => observer.disconnect()
   }, [])
+
+  if (isSuccessPage) {
+    return <SuccessPage />
+  }
 
   return (
     <div className="min-h-screen bg-bg text-text">
