@@ -6,19 +6,6 @@ function useInView(ref, options = {}) {
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
-  const resetState = () => {
-    setLoading(null)
-    setError("")
-  }
-
-  window.addEventListener("pageshow", resetState)
-
-  return () => {
-    window.removeEventListener("pageshow", resetState)
-  }
-}, [])
-
-  useEffect(() => {
     const node = ref.current
     if (!node) return
 
@@ -66,6 +53,19 @@ export default function MultisSection() {
   const rightRef = useRef(null)
   const [loading, setLoading] = useState(null)
   const [error, setError] = useState("")
+
+  useEffect(() => {
+  const resetState = () => {
+    setLoading(null)
+    setError("")
+  }
+
+  window.addEventListener("pageshow", resetState)
+
+  return () => {
+    window.removeEventListener("pageshow", resetState)
+  }
+}, [])
 
   const handleCheckout = async (productId) => {
     setError("")
