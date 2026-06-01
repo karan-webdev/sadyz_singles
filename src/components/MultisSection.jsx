@@ -6,6 +6,19 @@ function useInView(ref, options = {}) {
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
+  const resetState = () => {
+    setLoading(null)
+    setError("")
+  }
+
+  window.addEventListener("pageshow", resetState)
+
+  return () => {
+    window.removeEventListener("pageshow", resetState)
+  }
+}, [])
+
+  useEffect(() => {
     const node = ref.current
     if (!node) return
 

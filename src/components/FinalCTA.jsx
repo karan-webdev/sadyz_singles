@@ -14,6 +14,19 @@ export default function FinalCTA() {
     }
   }
 
+  useEffect(() => {
+  const resetState = () => {
+    setLoading(null)
+    setError("")
+  }
+
+  window.addEventListener("pageshow", resetState)
+
+  return () => {
+    window.removeEventListener("pageshow", resetState)
+  }
+}, [])
+
   const handleCheckout = async (productId) => {
     setError("")
     setLoading(productId)
