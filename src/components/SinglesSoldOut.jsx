@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { CheckCircle, AlertCircle } from 'lucide-react'
+import { subscribeEmail } from '../utils/waitlist'
 
 function useRevealRef(delay = 0) {
   const ref = useRef(null)
@@ -47,12 +48,47 @@ function animateCount(el) {
 export default function SinglesSoldOut() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState('')
+  const [statusType, setStatusType] = useState('')
 
-  const handleSubmit = () => {
-    if (!email.trim() || !email.includes('@')) return
-    setSubmitted(true)
-    setEmail('')
-    setTimeout(() => setSubmitted(false), 3000)
+  const handleSubmit = async () => {
+    const value = email.trim().toLowerCase()
+    if (!value) {
+      setStatusType('error')
+      setStatus('Email is required')
+      return
+    }
+
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+    if (!validEmail) {
+      setStatusType('error')
+      setStatus('Please enter a valid email')
+      return
+    }
+
+    setLoading(true)
+    setStatus('')
+    setStatusType('')
+
+    try {
+      const result = await subscribeEmail(value)
+
+      if (result.success) {
+        setSubmitted(true)
+        setStatusType('success')
+        setStatus(result.message ?? 'Successfully registered')
+        setEmail('')
+        setTimeout(() => setSubmitted(false), 3000)
+      } else {
+        throw new Error(result.error || 'Subscription failed')
+      }
+    } catch (error) {
+      setStatusType('error')
+      setStatus(error?.message ?? 'Unable to register at this time')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const features = [
@@ -191,13 +227,20 @@ export default function SinglesSoldOut() {
                 />
                 <button
                   onClick={handleSubmit}
+                  disabled={loading}
                   className={`px-6 py-3 rounded-lg font-semibold transition-all ${
                     submitted ? 'bg-blue text-black' : 'bg-blue text-black hover:bg-blue-dim'
-                  }`}
+                  } ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
-                  {submitted ? '✓ Added' : 'Join'}
+                  {loading ? 'Joining...' : submitted ? '✓ Added' : 'Join'}
                 </button>
               </div>
+
+              {status ? (
+                <p className={`text-sm mt-2 ${statusType === 'success' ? 'text-green' : 'text-red-400'}`}>
+                  {status}
+                </p>
+              ) : null}
 
               <p ref={disclaimerRef} className="rv text-xs text-text-dim">
                 No spam. One email when spots open.
