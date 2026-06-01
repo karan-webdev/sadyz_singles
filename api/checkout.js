@@ -5,8 +5,8 @@ const stripe = new Stripe(process.env.STRIPE_SK_KEY);
 
 // Get the app URL from environment or use default for local development
 const getAppUrl = () => {
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
+  if (process.env.FRONTEND_URL) {
+    return `https://${process.env.FRONTEND_URL}`;
   }
   return process.env.APP_URL || "http://localhost:5173";
 };
