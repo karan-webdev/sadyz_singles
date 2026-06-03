@@ -18,7 +18,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       email: session.customer_details?.email || "",
-      status: session.payment_status,
+      payment_status: session.payment_status,
+      amount_total: session.amount_total,
     });
   } catch (error) {
     console.error("Session retrieval error:", error);

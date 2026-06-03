@@ -18,11 +18,24 @@ export default function SuccessPage() {
       return
     }
 
-    fetch(`/api/session?session_id=${encodeURIComponent(sessionId)}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.email) setEmail(data.email)
+  fetch(`/api/session?session_id=${encodeURIComponent(sessionId)}`)
+  .then(res => res.json())
+  .then(data => {
+    if (data.email) setEmail(data.email)
+
+    if (
+      window.fbq &&
+      !firedRef.current &&
+      data.payment_status === "paid"
+    ) {
+      firedRef.current = true
+
+      window.fbq("track", "Purchase", {
+        value: data.amount_total / 100,
+        currency: "AUD"
       })
+    }
+  })
       .catch(() => setError('Unable to load purchase details.'))
       .finally(() => setLoading(false))
   }, [sessionId])

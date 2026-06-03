@@ -79,6 +79,12 @@ export default function SinglesSoldOut() {
         setStatusType('success')
         setStatus(result.message ?? 'Successfully registered')
         setEmail('')
+
+        //meta pixel fire
+        if (result.isNew && window.fbq) {
+          window.fbq("track", "Lead")
+        }
+
         setTimeout(() => setSubmitted(false), 3000)
       } else {
         throw new Error(result.error || 'Subscription failed')
