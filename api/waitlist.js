@@ -29,6 +29,7 @@ export default async function handler(req, res) {
       if (error.code === "23505") {
         return res.status(200).json({
           success: true,
+          isNew: false,
           message: "Already registered",
         })
       }
@@ -37,7 +38,11 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Failed to register email" })
     }
 
-    return res.status(200).json({ success: true })
+    return res.status(200).json({
+      success: true,
+      isNew: true
+    })
+    
   } catch (err) {
     console.error("Server error:", err)
     return res.status(500).json({ error: "Server error" })
