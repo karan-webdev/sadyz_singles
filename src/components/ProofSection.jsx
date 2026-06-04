@@ -24,9 +24,9 @@ export default function ProofSection() {
   const stats = [
     { label: "Singles ROI 2024", value: "+127.8%" },
     { label: "Multis ROI 2025", value: "+62.3%" },
-    { label: "Singles YTD 2026", value: "+56.78%" },
+    { label: "Singles YTD 2026", value: "+12.31%" },
     { label: "Multis YTD 2026", value: "+34.2%" },
-    { label: "Overall Win Rate", value: "100.%" },
+    { label: "Overall Win Rate", value: "63.4%" },
     { label: "Avg Odds", value: "2.15x" },
   ]
 

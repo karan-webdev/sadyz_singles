@@ -109,7 +109,7 @@ export default function SinglesSoldOut() {
   const results = [
     { year: '2024', roi: 127.8 },
     { year: '2025 Q1', roi: 62.3 },
-    { year: '2026 YTD', roi: 56.78 },
+    { year: '2026 YTD', roi: 52.97 },
   ]
 
   // Left column refs

@@ -135,7 +135,7 @@ export default function Hero() {
                 <div className="fade d6 px-3 sm:px-4 py-3 rounded-xl bg-bg-card border border-white/10 hover:border-blue/50 transition-colors col-span-2 md:col-span-1">
                   <div
                     ref={count3}
-                    data-countup="56.78"
+                    data-countup="52.97"
                     data-prefix="+"
                     data-suffix="U"
                     data-decimals="2"
